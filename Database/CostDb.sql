@@ -1,0 +1,15 @@
+﻿CREATE DATABASE CostDb;
+GO
+
+USE CostDb;
+GO
+
+CREATE TABLE CostItems (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Datetime DATE NOT NULL,
+    Incomexpense NVARCHAR(20) NOT NULL,
+    Item NVARCHAR(50) NOT NULL,
+    Detail NVARCHAR(200),
+    Paymethod NVARCHAR(50) NOT NULL,
+    Money DECIMAL(18,2) NOT NULL
+);
