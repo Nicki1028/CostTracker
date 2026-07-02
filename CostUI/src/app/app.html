@@ -1,0 +1,286 @@
+<div class="layout">
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="logo-icon">💳</div>
+      <h1>記帳系統</h1>
+    </div>
+
+    <nav>
+      <button
+        class="nav-item"
+        [class.active]="currentPage === 'create'"
+        (click)="currentPage = 'create'">
+        ＋ 新增記帳
+      </button>
+
+      <button
+        class="nav-item"
+        [class.active]="currentPage === 'query'"
+        (click)="currentPage = 'query'">
+        🔍 查詢紀錄
+      </button>
+    </nav>
+  </aside>
+
+  <main class="main">
+
+    <!-- 新增記帳 -->
+    <ng-container *ngIf="currentPage === 'create'">
+      <header class="page-header">
+        <h2>新增記帳</h2>
+        <p>快速新增您的收支記錄</p>
+      </header>
+
+      <section class="card form-card">
+        <h3>新增記帳</h3>
+
+        <div class="form-grid">
+          <label>
+            日期
+            <input type="date" [(ngModel)]="newCost.datetime">
+          </label>
+
+          <label>
+            收支類別
+            <select [(ngModel)]="newCost.incomexpense">
+              <option>收入</option>
+              <option>支出</option>
+            </select>
+          </label>
+
+          <label>
+            付款方式
+            <select [(ngModel)]="newCost.paymethod">
+              <option value="">請選擇付款方式</option>
+              <option>現金</option>
+              <option>信用卡</option>
+              <option>悠遊卡</option>
+              <option>LiNE Pay</option>
+              <option>Apple Pay</option>
+              <option>街口</option>
+            </select>
+          </label>
+
+          <label>
+            類別
+            <select [(ngModel)]="newCost.item">
+              <option value="">請選擇類別</option>
+              <option>餐飲</option>
+              <option>交通</option>
+              <option>購物</option>
+              <option>娛樂</option>
+              <option>居家</option>
+              <option>醫療</option>
+              <option>教育</option>
+              <option>薪資</option>
+            </select>
+          </label>
+
+          <label class="full">
+            細項
+            <input type="text" placeholder="請輸入細項" [(ngModel)]="newCost.detail">
+          </label>
+
+          <label class="full">
+            金額
+            <div class="money-input">
+              <span>$</span>
+              <input type="number" [(ngModel)]="newCost.money">
+            </div>
+          </label>
+        </div>
+
+        <div class="actions">
+          <button class="primary" (click)="addRecord()">＋ 新增記帳</button>
+          <button class="secondary" (click)="resetForm()">↻ 重設</button>
+        </div>
+      </section>
+    </ng-container>
+
+    <!-- 查詢紀錄 -->
+    <ng-container *ngIf="currentPage === 'query'">
+      <header class="page-header">
+        <h2>查詢紀錄</h2>
+        <p>依條件查詢收支記錄並產生圖表分析</p>
+      </header>
+
+      <section class="card">
+        <h3>查詢條件</h3>
+
+        <div class="query-grid">
+          <label>
+            日期區間
+            <div class="date-range">
+              <input type="date" [(ngModel)]="query.startDate">
+              <span>～</span>
+              <input type="date" [(ngModel)]="query.endDate">
+            </div>
+          </label>
+
+          <label>
+            收支類別
+            <select [(ngModel)]="query.incomexpense">
+              <option>全部</option>
+              <option>收入</option>
+              <option>支出</option>
+            </select>
+          </label>
+
+          <label>
+            類別
+            <select [(ngModel)]="query.item">
+              <option>全部</option>
+              <option>餐飲</option>
+              <option>交通</option>
+              <option>購物</option>
+              <option>娛樂</option>
+              <option>居家</option>
+              <option>醫療</option>
+              <option>教育</option>
+              <option>薪資</option>
+            </select>
+          </label>
+
+          <label>
+            付款方式
+            <select [(ngModel)]="query.paymethod">
+              <option>現金</option>
+              <option>信用卡</option>
+              <option>悠遊卡</option>
+              <option>LiNE Pay</option>
+              <option>Apple Pay</option>
+              <option>街口</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="query-actions">
+          <button class="secondary" (click)="resetQuery()">↻ 重設</button>
+          <button class="primary" (click)="searchRecords()">🔍 查詢</button>
+        </div>
+      </section>
+
+      <div class="content-grid">
+        <section class="card">
+          <div class="card-title-row">
+            <h3>查詢結果</h3>
+            <span>共 {{ records.length }} 筆記錄</span>
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>日期</th>
+                <th>收支類別</th>
+                <th>類別</th>
+                <th>細項</th>
+                <th>付款方式</th>
+                <th>金額</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let item of records">
+                <td>{{ item.datetime }}</td>
+                <td [class.income]="item.incomexpense" [class.expense]="item.incomexpense">
+                  {{ item.incomexpense }}
+                </td>
+                <td>{{ item.item }}</td>
+                <td>{{ item.detail }}</td>
+                <td>{{ item.paymethod }}</td>
+                <td [class.income]="item.money" [class.expense]="item.money">
+                  {{ item.money| currency:'TWD':'symbol':'1.0-0' }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="card">
+          <h3>圖表分析</h3>
+
+          <div class="chart-toolbar">
+            <label>
+              圖表類別
+              <select [(ngModel)]="chartType">
+                <option [ngValue]="'pie'">圓餅圖</option>
+                <option [ngValue]="'bar'">長條圖</option>
+                <option [ngValue]="'line'">折線圖</option>
+              </select>
+            </label>
+
+            <button class="primary" (click)="generateChart()">產生圖表</button>
+          </div>
+
+          <div
+            class="chart-placeholder"
+            [class.chart-placeholder--fill]="chartType !== 'pie'"
+            *ngIf="chartData.length; else emptyChart">
+
+            <ng-container [ngSwitch]="chartType">
+
+              <!-- 圓餅圖 -->
+              <ng-container *ngSwitchCase="'pie'">
+                <div class="donut" [style.background]="donutBackground">
+                  <span>總額<br><strong>{{ chartTotal | currency:'TWD':'symbol':'1.0-0' }}</strong></span>
+                </div>
+
+                <ul>
+                  <li *ngFor="let d of chartData; let i = index">
+                    <span class="dot" [style.background]="sliceColor(i)"></span>
+                    {{ d.name }}
+                    {{ d.value | currency:'TWD':'symbol':'1.0-0' }}
+                    ({{ slicePercent(d.value) | number:'1.0-1' }}%)
+                  </li>
+                </ul>
+              </ng-container>
+
+              <!-- 長條圖 -->
+              <div class="bar-chart" *ngSwitchCase="'bar'">
+                <div class="bar-col" *ngFor="let d of chartData; let i = index">
+                  <div class="bar-value">{{ d.value | currency:'TWD':'symbol':'1.0-0' }}</div>
+                  <div class="bar" [style.height.%]="barHeightPercent(d.value)" [style.background]="sliceColor(i)"></div>
+                  <div class="bar-label">{{ d.name }}</div>
+                </div>
+              </div>
+
+              <!-- 折線圖 -->
+              <div class="line-chart" *ngSwitchCase="'line'">
+                <div class="line-plot">
+                  <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <polyline
+                      [attr.points]="linePoints"
+                      fill="none"
+                      stroke="#2563eb"
+                      stroke-width="1.5"
+                      vector-effect="non-scaling-stroke" />
+                  </svg>
+
+                  <div
+                    class="line-dot"
+                    *ngFor="let d of chartData; let i = index"
+                    [style.left.%]="pointX(i, chartData.length)"
+                    [style.top.%]="pointY(d.value)">
+                  </div>
+                </div>
+
+                <div class="line-labels">
+                  <span *ngFor="let d of chartData">{{ d.name }}</span>
+                </div>
+              </div>
+
+            </ng-container>
+          </div>
+
+          <ng-template #emptyChart>
+            <div class="chart-placeholder chart-empty">
+              <p>請先查詢資料，再選擇圖表類別並點擊「產生圖表」</p>
+            </div>
+          </ng-template>
+        </section>
+      </div>
+    </ng-container>
+  </main>
+</div>
+
+
