@@ -1,13 +1,7 @@
 # CostTracker
 
-## 專案背景
+## 簡介
 將原本用 C# WinForms 撰寫、以 CSV 檔案儲存資料的桌面記帳程式，重構為前後端分離的 Web 應用程式，並逐步將資料儲存從檔案系統遷移至關聯式資料庫。
-
-## 技術棧
-**前端**：Angular（Standalone Components）、TypeScript
-**後端**：ASP.NET Core Web API（.NET 8）
-**資料庫**：SQL Server
-**版本控制**：Git / GitHub
 
 ## 專案架構
 ### 前端（Angular）
