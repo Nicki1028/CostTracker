@@ -238,53 +238,6 @@ public class CostService : ICostService
                 Money = reader.GetDecimal(5)
             });
         }
-        return result;
-
-        //EF版
-        //private readonly CostDbContext _context;
-
-        //public CostService(CostDbContext context)
-        //{
-        //    _context = context;
-        //}
-
-        //public void AddCost(CostItem item)
-        //{
-        //    _context.CostItems.Add(item);
-        //    _context.SaveChanges();
-        //}
-
-        //public List<CostItem> GetCosts(
-        //    DateOnly start,
-        //    DateOnly end,
-        //    string incomexpense,
-        //    string item,
-        //    string paymethod)
-        //{
-        //    var query = _context.CostItems.AsQueryable();
-
-        //    query = query.Where(x =>
-        //        string.Compare(x.Datetime, start.ToString("yyyy-MM-dd")) >= 0 &&
-        //        string.Compare(x.Datetime, end.ToString("yyyy-MM-dd")) <= 0);
-
-        //    if (incomexpense != "全部")
-        //    {
-        //        query = query.Where(x => x.Incomexpense == incomexpense);
-        //    }
-
-        //    if (item != "全部")
-        //    {
-        //        query = query.Where(x => x.Item == item);
-        //    }
-
-        //    if (paymethod != "全部")
-        //    {
-        //        query = query.Where(x => x.Paymethod == paymethod);
-        //    }
-
-        //    return query
-        //        .OrderByDescending(x => x.Datetime)
-        //        .ToList();
-        //}
+        return result;        
     }
 }

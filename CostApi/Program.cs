@@ -1,15 +1,9 @@
 using CostApi.Services;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddSingleton<ICostService, CostService>();
-//builder.Services.AddScoped<ICostService, CostService>();
-////builder.Services.AddDbContext<CostDbContext>(options =>
-//    options.UseSqlServer(
-//    builder.Configuration.GetConnectionString("DefaultConnection")));
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -25,14 +19,6 @@ builder.Services.AddCors(options =>
     });
 });
 
-
-//var app = builder.Build();
-//app.UseCors(policy =>
-//    policy.AllowAnyOrigin()
-//          .AllowAnyHeader()
-//          .AllowAnyMethod());
-//app.MapControllers();
-//app.Run();
 
 var app = builder.Build();
 
