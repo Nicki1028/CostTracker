@@ -426,6 +426,20 @@ th {
   box-shadow: 0 0 0 3px white;
 }
 
+.line-value {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  margin-top: -10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #2563eb;
+  background: white;
+  padding: 1px 6px;
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
 .line-labels {
   display: flex;
   justify-content: space-between;

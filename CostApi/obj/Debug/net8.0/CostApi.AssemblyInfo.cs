@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CostApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ab4b2d432f6de851e1f9370d8ba899aa892f0f04")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+594ac750fc6c554f8a973dd5ed0538e7975a33f8")]
 [assembly: System.Reflection.AssemblyProductAttribute("CostApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CostApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

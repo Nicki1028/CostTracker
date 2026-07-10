@@ -262,6 +262,14 @@
                     [style.left.%]="pointX(i, chartData.length)"
                     [style.top.%]="pointY(d.value)">
                   </div>
+
+                  <div
+                    class="line-value"
+                    *ngFor="let d of chartData; let i = index"
+                    [style.left.%]="pointX(i, chartData.length)"
+                    [style.top.%]="pointY(d.value)">
+                    {{ d.value | currency:'TWD':'symbol':'1.0-0' }}
+                  </div>
                 </div>
 
                 <div class="line-labels">

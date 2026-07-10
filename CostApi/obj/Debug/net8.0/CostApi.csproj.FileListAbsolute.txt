@@ -325,3 +325,4 @@ C:\Users\USER\Desktop\CostTracker\CostApi\obj\Debug\net8.0\refint\CostApi.dll
 C:\Users\USER\Desktop\CostTracker\CostApi\obj\Debug\net8.0\CostApi.pdb
 C:\Users\USER\Desktop\CostTracker\CostApi\obj\Debug\net8.0\CostApi.genruntimeconfig.cache
 C:\Users\USER\Desktop\CostTracker\CostApi\obj\Debug\net8.0\ref\CostApi.dll
+C:\Users\USER\Desktop\CostTracker\CostApi\obj\Debug\net8.0\CostApi.sourcelink.json

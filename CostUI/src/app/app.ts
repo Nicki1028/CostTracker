@@ -98,7 +98,7 @@ export class App {
   }
 
   pointY(value: number): number {
-    return 95 - (Math.abs(value) / this.chartMax) * 85;
+    return 95 - (Math.abs(value) / this.chartMax) * 65;
   }
 
   addRecord(): void {
